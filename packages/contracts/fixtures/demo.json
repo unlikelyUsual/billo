@@ -1,0 +1,177 @@
+{
+  "demoToday": "2026-11-08",
+  "timeZone": "Asia/Bangkok",
+  "dueSoonDays": 7,
+  "issuers": {
+    "kbank": {
+      "nameEn": "Kasikorn Bank",
+      "nameTh": "กสิกรไทย",
+      "outcome": "succeeded",
+      "outcomeCode": "demo_settled"
+    },
+    "scb": {
+      "nameEn": "SCB",
+      "nameTh": "ไทยพาณิชย์",
+      "outcome": "succeeded",
+      "outcomeCode": "demo_settled"
+    },
+    "bbl": {
+      "nameEn": "Bangkok Bank",
+      "nameTh": "กรุงเทพ",
+      "outcome": "failed",
+      "outcomeCode": "demo_issuer_declined"
+    },
+    "krungsri": {
+      "nameEn": "Krungsri",
+      "nameTh": "กรุงศรี",
+      "outcome": "pending",
+      "outcomeCode": "demo_outcome_uncertain"
+    },
+    "ktc": {
+      "nameEn": "KTC",
+      "nameTh": "เคทีซี",
+      "outcome": "succeeded",
+      "outcomeCode": "demo_settled"
+    },
+    "ttb": {
+      "nameEn": "ttb",
+      "nameTh": "ทีทีบี",
+      "outcome": "succeeded",
+      "outcomeCode": "demo_settled"
+    }
+  },
+  "cards": [
+    { "id": "card_kbank", "issuer": "kbank", "network": "visa", "last4": "4412" },
+    { "id": "card_scb", "issuer": "scb", "network": "mastercard", "last4": "8831" },
+    { "id": "card_bbl", "issuer": "bbl", "network": "visa", "last4": "2207" },
+    { "id": "card_krungsri", "issuer": "krungsri", "network": "mastercard", "last4": "1190" },
+    { "id": "card_ktc", "issuer": "ktc", "network": "visa", "last4": "5564" }
+  ],
+  "statements": [
+    {
+      "id": "stmt_kbank_2026-10-25",
+      "cardId": "card_kbank",
+      "periodStart": "2026-09-26",
+      "periodEnd": "2026-10-25",
+      "statementDate": "2026-10-25",
+      "dueDate": "2026-11-12",
+      "fullDueSatang": 4285000,
+      "minDueSatang": 214300,
+      "currency": "THB",
+      "reviewState": "confirmed",
+      "settlementState": "open",
+      "source": "seed"
+    },
+    {
+      "id": "stmt_scb_2026-10-20",
+      "cardId": "card_scb",
+      "periodStart": "2026-09-21",
+      "periodEnd": "2026-10-20",
+      "statementDate": "2026-10-20",
+      "dueDate": "2026-11-18",
+      "fullDueSatang": 1567800,
+      "minDueSatang": 78390,
+      "currency": "THB",
+      "reviewState": "confirmed",
+      "settlementState": "open",
+      "source": "seed"
+    },
+    {
+      "id": "stmt_bbl_2026-10-18",
+      "cardId": "card_bbl",
+      "periodStart": "2026-09-19",
+      "periodEnd": "2026-10-18",
+      "statementDate": "2026-10-18",
+      "dueDate": "2026-11-09",
+      "fullDueSatang": 890050,
+      "minDueSatang": 45000,
+      "currency": "THB",
+      "reviewState": "confirmed",
+      "settlementState": "open",
+      "source": "seed"
+    },
+    {
+      "id": "stmt_krungsri_2026-10-28",
+      "cardId": "card_krungsri",
+      "periodStart": "2026-09-29",
+      "periodEnd": "2026-10-28",
+      "statementDate": "2026-10-28",
+      "dueDate": "2026-11-25",
+      "fullDueSatang": 2334500,
+      "minDueSatang": 120000,
+      "currency": "THB",
+      "reviewState": "confirmed",
+      "settlementState": "open",
+      "source": "seed"
+    },
+    {
+      "id": "stmt_ktc_2026-10-15",
+      "cardId": "card_ktc",
+      "periodStart": "2026-09-16",
+      "periodEnd": "2026-10-15",
+      "statementDate": "2026-10-15",
+      "dueDate": "2026-12-02",
+      "fullDueSatang": 675000,
+      "minDueSatang": 33750,
+      "currency": "THB",
+      "reviewState": "needs_review",
+      "settlementState": "open",
+      "source": "seed"
+    },
+    {
+      "id": "stmt_kbank_2026-09-25",
+      "cardId": "card_kbank",
+      "periodStart": "2026-08-26",
+      "periodEnd": "2026-09-25",
+      "statementDate": "2026-09-25",
+      "dueDate": "2026-10-12",
+      "fullDueSatang": 2100000,
+      "minDueSatang": 105000,
+      "currency": "THB",
+      "reviewState": "confirmed",
+      "settlementState": "settled",
+      "source": "seed"
+    }
+  ],
+  "samples": [
+    {
+      "id": "ttb-2026-10",
+      "issuer": "ttb",
+      "last4": "7781",
+      "network": "visa",
+      "periodStart": "2026-10-01",
+      "periodEnd": "2026-10-31",
+      "statementDate": "2026-10-31",
+      "dueDate": "2026-11-21",
+      "fullDueSatang": 1500000,
+      "minDueSatang": 75000
+    },
+    {
+      "id": "kbank-already-on-file",
+      "issuer": "kbank",
+      "last4": "4412",
+      "network": "visa",
+      "periodStart": "2026-09-26",
+      "periodEnd": "2026-10-25",
+      "statementDate": "2026-10-25",
+      "dueDate": "2026-11-12",
+      "fullDueSatang": 4285000,
+      "minDueSatang": 214300
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay_seed_kbank_sep",
+      "idempotencyKey": "seed-kbank-2026-09",
+      "createdAt": "2026-10-12T09:30:00+07:00",
+      "items": [
+        {
+          "statementId": "stmt_kbank_2026-09-25",
+          "status": "succeeded",
+          "simulatorCode": "demo_settled",
+          "amountSatang": 2100000
+        }
+      ]
+    }
+  ]
+}

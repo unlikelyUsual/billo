@@ -1,0 +1,18 @@
+{
+  "name": "billo",
+  "private": true,
+  "workspaces": [
+    "apps/api"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w @billo/api",
+    "start:api": "npm run start -w @billo/api",
+    "build:api": "npm run build -w @billo/api",
+    "typecheck": "npm run typecheck -w @billo/api",
+    "test": "npm run test -w @billo/api",
+    "check": "npm run typecheck && npm test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

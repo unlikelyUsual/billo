@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Billo demo API",
+    "version": "0.1.0",
+    "description": "In-memory Thai credit-card bill ledger. Amounts are integer satang. Dates are Asia/Bangkok civil dates. No real payments."
+  },
+  "paths": {
+    "/health": { "get": { "operationId": "health", "responses": { "200": { "description": "Process is up" } } } },
+    "/v1/meta": { "get": { "operationId": "meta", "responses": { "200": { "description": "Demo flags and scripted issuer outcomes" } } } },
+    "/v1/home": {
+      "get": {
+        "operationId": "home",
+        "responses": { "200": { "description": "Open totals and bills", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Home" } } } } }
+      }
+    },
+    "/v1/cards": { "get": { "operationId": "listCards", "responses": { "200": { "description": "Cards with last4 only" } } } },
+    "/v1/cards/{id}": { "get": { "operationId": "getCard", "responses": { "200": { "description": "Card and its statements" } } } },
+    "/v1/statements": { "get": { "operationId": "listStatements", "responses": { "200": { "description": "All statements" } } } },
+    "/v1/statements/{id}": {
+      "get": { "operationId": "getStatement", "responses": { "200": { "description": "One statement" } } },
+      "patch": { "operationId": "patchStatement", "responses": { "200": { "description": "Updated draft" }, "400": { "description": "Validation error" }, "409": { "description": "Not editable" } } }
+    },
+    "/v1/statements/{id}/confirm": { "post": { "operationId": "confirmStatement", "responses": { "200": { "description": "Confirmed" } } } },
+    "/v1/samples": { "get": { "operationId": "listSamples", "responses": { "200": { "description": "Synthetic samples" } } } },
+    "/v1/imports/sample": { "post": { "operationId": "importSample", "responses": { "201": { "description": "Draft created" }, "409": { "description": "Duplicate" } } } },
+    "/v1/imports/pdf": { "post": { "operationId": "importPdf", "responses": { "201": { "description": "Marked sample extracted" }, "422": { "description": "Extraction unavailable" } } } },
+    "/v1/payments": {
+      "get": { "operationId": "listPayments", "responses": { "200": { "description": "Payment history" } } },
+      "post": { "operationId": "createPayment", "responses": { "201": { "description": "Simulated payment" }, "409": { "description": "Not payable or idempotency conflict" } } }
+    },
+    "/v1/payments/{id}": { "get": { "operationId": "getPayment", "responses": { "200": { "description": "One payment" } } } },
+    "/v1/payments/{id}/retry": { "post": { "operationId": "retryPayment", "responses": { "409": { "description": "Retries are refused" } } } },
+    "/v1/demo/reset": { "post": { "operationId": "resetDemo", "responses": { "200": { "description": "Seed restored" } } } }
+  },
+  "components": {
+    "schemas": {
+      "Home": {
+        "type": "object",
+        "required": ["demo", "totals", "bills"],
+        "properties": {
+          "demo": { "$ref": "#/components/schemas/DemoClock" },
+          "totals": { "$ref": "#/components/schemas/Totals" },
+          "bills": { "type": "array", "items": { "$ref": "#/components/schemas/Statement" } }
+        }
+      },
+      "DemoClock": {
+        "type": "object",
+        "required": ["today", "timeZone", "noRealMoney", "currency", "amountUnit"],
+        "properties": {
+          "today": { "type": "string", "example": "2026-11-08" },
+          "timeZone": { "type": "string", "example": "Asia/Bangkok" },
+          "noRealMoney": { "type": "boolean" },
+          "currency": { "type": "string", "enum": ["THB"] },
+          "amountUnit": { "type": "string", "enum": ["satang"] }
+        }
+      },
+      "Totals": {
+        "type": "object",
+        "required": [
+          "openFullDueSatang",
+          "openMinDueSatang",
+          "openCount",
+          "dueSoonFullDueSatang",
+          "dueSoonCount",
+          "overdueFullDueSatang",
+          "overdueCount",
+          "pendingFullDueSatang",
+          "pendingCount",
+          "needsReviewCount"
+        ],
+        "properties": {
+          "openFullDueSatang": { "type": "integer" },
+          "openMinDueSatang": { "type": "integer" },
+          "openCount": { "type": "integer" },
+          "dueSoonFullDueSatang": { "type": "integer" },
+          "dueSoonCount": { "type": "integer" },
+          "overdueFullDueSatang": { "type": "integer" },
+          "overdueCount": { "type": "integer" },
+          "pendingFullDueSatang": { "type": "integer" },
+          "pendingCount": { "type": "integer" },
+          "needsReviewCount": { "type": "integer" }
+        }
+      },
+      "Statement": {
+        "type": "object",
+        "required": ["id", "last4", "fullDueSatang", "minDueSatang", "dueDate", "reviewState", "settlementState", "currency"],
+        "properties": {
+          "id": { "type": "string" },
+          "last4": { "type": "string", "pattern": "^[0-9]{4}$" },
+          "fullDueSatang": { "type": "integer" },
+          "minDueSatang": { "type": "integer" },
+          "dueDate": { "type": "string" },
+          "reviewState": { "type": "string", "enum": ["needs_review", "confirmed"] },
+          "settlementState": { "type": "string", "enum": ["open", "payment_pending", "settled", "payment_failed"] },
+          "currency": { "type": "string", "enum": ["THB"] }
+        }
+      }
+    }
+  }
+}
